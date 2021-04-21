@@ -11,6 +11,9 @@ import {
   useParams
 } from "react-router-dom";
 
+/* eslint-disable import/no-webpack-loader-syntax */
+import Content from '!babel-loader!@mdx-js/loader!./content.mdx'
+
 export default function App() {
   return (
     <div className="App">
@@ -59,7 +62,7 @@ export default function App() {
 }
 
 function Home() {
-  return <h2>Home</h2>;
+  return <h2>Retour à bon port</h2>;
 }
 
 function About() {
@@ -102,5 +105,10 @@ function Topics() {
 
 function Topic() {
   let { topicId } = useParams();
-  return <h3>Requested topic ID: {topicId}</h3>;
+  return (
+    <div>
+      <h3>Requested topic ID: {topicId}</h3> 
+      <Content />
+    </div>
+    );
 }
