@@ -27,10 +27,10 @@ export default function App() {
                 <Link to="/">Retour à bon port</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/about">À propos de ce document de synthèse</Link>
               </li>
               <li>
-                <Link to="/topics">Topics</Link>
+                <Link to="/topics">Document de synthèse</Link>
               </li>
             </ul>
 
@@ -66,7 +66,7 @@ function Home() {
 }
 
 function About() {
-  return <h2>About</h2>;
+  return <h2>À propos de ce document de synthèse</h2>;
 }
 
 function Topics() {
@@ -74,15 +74,16 @@ function Topics() {
 
   return (
     <div>
-      <h2>Topics</h2>
+      <h2>Document de synthèse</h2>
 
       <ul>
         <li>
-          <Link to={`${match.url}/components`}>Components</Link>
+          <Link to={`${match.url}/axe_1`}>
+            Axe 1 : Le déclin / marginalisation de la région d’Aunis-Poitou-Saintonge au sein de l’ensemble français</Link>
         </li>
         <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
+          <Link to={`${match.url}/axe_2`}>
+            Axe 2 : La Rochelle : un port dominant mais pas structurant ?
           </Link>
         </li>
       </ul>
@@ -90,13 +91,17 @@ function Topics() {
       {/* The Topics page has its own <Switch> with more routes
           that build on the /topics URL path. You can think of the
           2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
+          the page that is shown when no topic is selected */
+          
+        /* J'ai changé la page Topics par une page 'Document de synthèse' 
+           qui contient plusieurs axes de recherche (et pas plusieurs Topic)*/
+      }
       <Switch>
         <Route path={`${match.path}/:topicId`}>
           <Topic />
         </Route>
         <Route path={match.path}>
-          <h3>Please select a topic.</h3>
+          <h3>Veuillez choisir un axe de recherche</h3>
         </Route>
       </Switch>
     </div>
