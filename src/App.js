@@ -24,7 +24,7 @@ export default function App() {
           <div>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">Retour à bon port</Link>
               </li>
               <li>
                 <Link to="/about">About</Link>
