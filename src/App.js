@@ -66,12 +66,19 @@ function Home() {
 }
 
 function About() {
-  return <h2>À propos de ce document de synthèse</h2>;
+  return (
+  <div>
+    <h2>À propos de ce document de synthèse</h2>
+    <Content />
+  </div>
+  );
 }
 
 function Topics() {
   let match = useRouteMatch();
 
+  // je pense que je vais devoir faire une fonction "Topic" pour chaque axe qui me permettra mettre liens / routes en plus vers autre axe et / ou homepage
+  // elle est déjà faite (à voir si je l'adapte en 2 fonctions en fonction du topic id)
   return (
     <div>
       <h2>Document de synthèse</h2>
@@ -108,12 +115,36 @@ function Topics() {
   );
 }
 
+// je pense que je vais définir dans fichiers externes = components tels qu'ils devraient être,
+// et en fonction du topic ID je vois ce que je donne comme component (Axe1 ou Axe 2 ?)
+// pour l'instant j'affiche un titre non null au lien que si on est sur la page axe 1, le principe n'est pas fou
+
 function Topic() {
+  let match = useRouteMatch(); 
+
   let { topicId } = useParams();
+  let optionnal_link = "";
+  if (topicId === 'axe_1') { optionnal_link = "Passer à l'axe 2"}; 
+  console.log({topicId} === 'axe_1');
+
   return (
     <div>
-      <h3>Requested topic ID: {topicId}</h3> 
-      <Content />
+      <h3>Axe choisi : {topicId}</h3> 
+      
+      <ul>
+        <li>
+          <Link to="/">Retour à bon port</Link>
+        </li>
+        <li>
+          <Link to={`${match.path}/axe_2`}> {optionnal_link} </Link>
+        </li>
+      </ul>
+
+      <Switch>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
     );
 }
