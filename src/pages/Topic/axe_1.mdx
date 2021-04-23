@@ -1,3 +1,46 @@
+import VegaTest from '../../components/VegaTest'
+
+
+<VegaTest 
+  filename="sorties_navires_vers_colonies.csv" 
+  spec={{
+    "description": "Les bateaux",
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "ship_flag_standardized_fr",
+          "type": "nominal"
+      },
+      "y": {
+        "field": "tonnage",
+        "aggregate": "mean", 
+        "type": "quantitative"
+      }
+    }
+  }}
+/>
+
+2ème vis: 
+
+<VegaTest 
+  filename="sorties_navires_vers_colonies.csv" 
+  spec={{
+    "description": "Les bateaux",
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "ship_flag_standardized_fr",
+          "type": "nominal"
+      },
+      "y": {
+        "field": "tonnage",
+        "aggregate": "mean", 
+        "type": "quantitative"
+      }
+    }
+  }}
+/>
+
 Document de synthèse
 
 -------------------------------
