@@ -115,9 +115,11 @@ function Topics() {
   );
 }
 
-// je pense que je vais définir dans fichiers externes = components tels qu'ils devraient être,
-// et en fonction du topic ID je vois ce que je donne comme component (Axe1 ou Axe 2 ?)
+
 // pour l'instant j'affiche un titre non null au lien que si on est sur la page axe 1, le principe n'est pas fou
+
+// peut être que le plus simple c'est que la fonction topic fasse le test de si axe 1 ou axe 2 choisi
+// => ensuite on va chercher le bon component (celui de axe 1 ou axe 2 dans un fichier externe)
 
 function Topic() {
   let match = useRouteMatch(); 
@@ -125,7 +127,6 @@ function Topic() {
   let { topicId } = useParams();
   let optionnal_link = "";
   if (topicId === 'axe_1') { optionnal_link = "Passer à l'axe 2"}; 
-  console.log({topicId} === 'axe_1');
 
   return (
     <div>
