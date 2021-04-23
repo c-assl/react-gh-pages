@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 import React from "react";
@@ -17,22 +16,23 @@ import Content from '!babel-loader!@mdx-js/loader!./content.mdx'
 export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
         <Router>
           <div>
-            <ul>
-              <li>
-                <Link to="/">Retour à bon port</Link>
-              </li>
-              <li>
-                <Link to="/about">À propos de ce document de synthèse</Link>
-              </li>
-              <li>
-                <Link to="/topics">Document de synthèse</Link>
-              </li>
-            </ul>
+            <header className="App-header">
+              <ul>
+                <li>
+                  <Link to="/">Retour à bon port</Link>
+                </li>
+                <li>
+                  <Link to="/about">À propos de ce document de synthèse</Link>
+                </li>
+                <li>
+                  <Link to="/topics">Document de synthèse</Link>
+                </li>
+              </ul>
+            </header>
+            <main></main>
+            <footer></footer>
 
             <Switch>
               <Route path="/about">
@@ -56,7 +56,6 @@ export default function App() {
         >
           Learn React
         </a>
-      </header>
     </div>
   );
 }
