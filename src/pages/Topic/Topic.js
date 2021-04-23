@@ -1,6 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+/* eslint-disable import/no-webpack-loader-syntax */
+import Axe1 from '!babel-loader!@mdx-js/loader!./axe_1.mdx';
+import Axe2 from '!babel-loader!@mdx-js/loader!./axe_2.mdx';
+
 const Topic = ({axe}) => {
   const otherAxe = axe === 'axe_1' ? 'axe_2' : 'axe_1';
   // ternaire, équivalent à :
@@ -18,7 +22,6 @@ const Topic = ({axe}) => {
   return (
     <div>
       <h3>Axe choisi : {axe}</h3> 
-      
       <ul>
         <li>
           <Link to="/">Retour à bon port</Link>
@@ -29,6 +32,17 @@ const Topic = ({axe}) => {
           </Link>
         </li>
       </ul>
+
+      <section>
+        {
+          axe === 'axe_1' ?
+          <Axe1 />
+          :
+          <Axe2 />
+        }
+      </section>
+      
+      
     </div>
     );
 }
