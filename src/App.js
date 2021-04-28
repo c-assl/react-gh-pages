@@ -13,7 +13,7 @@ import About from './pages/About';
 import Topics from './pages/Topics';
 
 /* import components */
-import Nav from './components/Nav';
+import HeaderNav from './components/HeaderNav';
 
 /* import other assets */
 import './App.css';
@@ -25,7 +25,7 @@ export default function App() {
         <Router>
           <div>
             <header>
-              <Nav />
+              <HeaderNav />
             </header>
             <main>
               <Switch>

@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+body {
+    font-family: 'Karla', sans-serif;
+  }
+
+.HeaderNav {
+    display: flex; 
+    justify-content: space-around;
+    position: fixed; /* je pense q c'est ça pour fixer le header */
+  }
