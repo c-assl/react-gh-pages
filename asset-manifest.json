@@ -1,23 +1,22 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/react-gh-pages/static/js/main.1ee3f313.chunk.js",
-    "main.js.map": "/react-gh-pages/static/js/main.1ee3f313.chunk.js.map",
-    "runtime-main.js": "/react-gh-pages/static/js/runtime-main.1de06a9c.js",
-    "runtime-main.js.map": "/react-gh-pages/static/js/runtime-main.1de06a9c.js.map",
-    "static/js/2.0d033625.chunk.js": "/react-gh-pages/static/js/2.0d033625.chunk.js",
-    "static/js/2.0d033625.chunk.js.map": "/react-gh-pages/static/js/2.0d033625.chunk.js.map",
-    "static/js/3.50c95089.chunk.js": "/react-gh-pages/static/js/3.50c95089.chunk.js",
-    "static/js/3.50c95089.chunk.js.map": "/react-gh-pages/static/js/3.50c95089.chunk.js.map",
+    "main.css": "/react-gh-pages/static/css/main.ecc4bd66.chunk.css",
+    "main.js": "/react-gh-pages/static/js/main.965eeb0a.chunk.js",
+    "main.js.map": "/react-gh-pages/static/js/main.965eeb0a.chunk.js.map",
+    "runtime-main.js": "/react-gh-pages/static/js/runtime-main.b5f53d4d.js",
+    "runtime-main.js.map": "/react-gh-pages/static/js/runtime-main.b5f53d4d.js.map",
+    "static/js/2.6af15568.chunk.js": "/react-gh-pages/static/js/2.6af15568.chunk.js",
+    "static/js/2.6af15568.chunk.js.map": "/react-gh-pages/static/js/2.6af15568.chunk.js.map",
+    "static/js/3.dc2c37f0.chunk.js": "/react-gh-pages/static/js/3.dc2c37f0.chunk.js",
+    "static/js/3.dc2c37f0.chunk.js.map": "/react-gh-pages/static/js/3.dc2c37f0.chunk.js.map",
     "index.html": "/react-gh-pages/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/react-gh-pages/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.0d033625.chunk.js.LICENSE.txt": "/react-gh-pages/static/js/2.0d033625.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/react-gh-pages/static/media/logo.6ce24c58.svg"
+    "static/css/main.ecc4bd66.chunk.css.map": "/react-gh-pages/static/css/main.ecc4bd66.chunk.css.map",
+    "static/js/2.6af15568.chunk.js.LICENSE.txt": "/react-gh-pages/static/js/2.6af15568.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.1de06a9c.js",
-    "static/js/2.0d033625.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.1ee3f313.chunk.js"
+    "static/js/runtime-main.b5f53d4d.js",
+    "static/js/2.6af15568.chunk.js",
+    "static/css/main.ecc4bd66.chunk.css",
+    "static/js/main.965eeb0a.chunk.js"
   ]
 }
