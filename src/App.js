@@ -23,7 +23,7 @@ export default function App() {
   return (
     <div className="App">
         <Router>
-          <div>
+          <div id="wrapper">
             <header>
               <HeaderNav />
             </header>

@@ -22,16 +22,6 @@ const Topic = ({axe}) => {
   return (
     <div>
       <h3>Axe choisi : {axe}</h3> 
-      <ul>
-        <li>
-          <Link to="/">Retour à bon port</Link>
-        </li>
-        <li>
-          <Link to={`/topics/${otherAxe}`}>
-            {otherAxe === 'axe_1' ? 'Axe 1' : 'Axe 2'}
-          </Link>
-        </li>
-      </ul>
 
       <section>
         {
@@ -41,6 +31,19 @@ const Topic = ({axe}) => {
           <Axe2 />
         }
       </section>
+
+      <footer>
+        <ul>
+          <li>
+            <Link to="/">Retour à bon port</Link>
+          </li>
+          <li>
+            <Link to={`/topics/${otherAxe}`}>
+              {otherAxe === 'axe_1' ? 'Axe 1' : 'Axe 2'}
+            </Link>
+          </li>
+        </ul>
+      </footer>
       
       
     </div>
