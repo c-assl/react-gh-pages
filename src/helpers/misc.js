@@ -97,37 +97,53 @@ export const get_toflit_flows_by_csv = ({
             let is_valid = true;
 
             // key --> 'year', filter_value --> 1789
-            for (let filter_value in kwargs) // kwargs semble être indiçable mais pas sur qu'on doive pas le mettre dans un format spécial pas comme python
+            // kwargs obtenu sous forme de dict : --> { year: 1789, customs_region: 'La Rochelle' }
+            
+            // kwargs semble être indiçable mais pas sur qu'on doive pas le mettre dans un format spécial pas comme python
             // sinon suggestion : function.apply(obj, [args])
-            for (let key,filter_value in [param for param in kwargs.items() if param[0] not in ['params']]): 
-                row_value = row[key]
+
+            // ligne originale : je ne sais pas pourquoi on ne veut prendre en compte les filtres que pour les colonnes qui ne sont pas à garder dans le résultats (colonne données dans l'argument 'params' sous forme de liste)
+            // for (let key,filter_value in [param for param in kwargs.items() if param[0] not in ['params']]): 
+
+            for (let [key, filter_value] of Object.entries(kwargs)) { // pas sure de ma traduction JS avec la double boucle
+                row_value = row[key];
 
                 // si la valeur est une liste : on caste en string ses membres
-                if isinstance(filter_value, list):
-                filter_value = [str(val) for val in filter_value]
+                if (typeof(filter_value) === object) {
+                    filter_value = [...filter_value].map(x => x.toString()); // traduction JS de list comprehension (x for x in y -> Array.map)
+                }
                 // sinon c'est un tableau à une valeur qu'on caste en string
-                else:
-                filter_value = [str(filter_value)]
+                else {
+                    filter_value = [filter_value.toString()];
+                }
                 // à partir de là, filter_value est une liste de strings
 
                 // si la ligne a un attribut qui fait partie des valeurs acceptées par le filtre => on examine les autres filtres 
-                if row_value not in filter_value:
-                is_valid = False
-                break
+                if (!(row_value in filter_value)) {
+                    is_valid = false;
+                    break;
+                }
+            }
 
             // si l'item n'a pas été défiltré, on le formatte avant de l'ajouter au résultat
-            if is_valid is True:
-                row_formated = {}
+            if (is_valid === true) {
+                row_formated = {};
 
                 // on ne garde que les colonnes qui nous intéressent dans le résultat 
-                if params is not None :
-                for column, value in row.items():
-                    if column in params:
-                    row_formated[column] = value
-                else:
-                row_formated = row
+                if (params != null) {
+                    for (let [column, value] of Object.entries(row)) {
+                        if (column in params) {
+                            row_formated[column] = value;
+                        }
+                    }
+                }
+                else {
+                    row_formated = row;
+                }
 
-                results.append(row_formated)
+                results.push(row_formated)
+            }
+                
             }        
         return results
 
