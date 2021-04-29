@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# too large files
+/big_data
+/public/data/toflit18_all_flows.csv
