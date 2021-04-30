@@ -171,7 +171,8 @@ export const getToflitFlowsByCsv = ({
         }
 
         /* en l'état ça ne fonctionne pas */
-        const URL = `${process.env.PUBLIC_URL}/data/toflit18_all_flows.csv`;
+        const URL = `${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv`;
+        console.log("URL '${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv` : ", URL)
         get(URL) // get de axios
             .then(({ data: csvString }) => {
                 // conversion en js (avec d3-dsv)
@@ -188,16 +189,17 @@ export const getToflitFlowsByCsv = ({
 
 }
 
-function getToflitFlowsComponent() {
-    return (
-    getToflitFlowsByCsv({
-        year:1789,
-        customs_region:"La Rochelle"
-    })
+const GetToflitFlowsComponent = ({
+    result
+}) => {
+    return ( // je pense qu'il faut que je return du html en vrai
+    <p>
+    {result.map(row => <div>{row.year, row.customs_region, row.partner}</div>)}
+    </p>
     );
   }
-  
-  export default getToflitFlowsComponent;
+
+export default GetToflitFlowsComponent;
 
 
 
