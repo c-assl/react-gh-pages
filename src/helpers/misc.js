@@ -46,6 +46,7 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
             return year === +rowYear;
         } else return true;
     })
+    console.log('1', filteredData);
 
     filteredData = filteredData.filter(row => {
         // pour chaque filtre (sauf filtre timespan et filtrage des colomnes) :
@@ -58,10 +59,12 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
 
         // ligne originale : je ne sais pas pourquoi on ne veut prendre en compte les filtres que pour les colonnes qui ne sont pas à garder dans le résultats (colonne données dans l'argument 'params' sous forme de liste)
         // for (let key,filter_value in [param for param in kwargs.items() if param[0] not in ['params']]): 
+        console.log('rest', rest);
         Object.entries(rest)
         .some(([key, inputFilterValue]) => {
             const rowValue = row[key];
             let filterValue = inputFilterValue;
+            console.log('filter value 1', filterValue);
             // si la valeur est une liste : on caste en string ses membres
             if (Array.isArray(filterValue)) {
                 filterValue = filterValue.map(x => x + ''); // caster en string
@@ -70,10 +73,11 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
             else {
                 filterValue = [filterValue + ''];
             }
+            console.log('filter value final', filterValue);
             // à partir de là, filter_value est une liste de strings
 
             // si la ligne a un attribut qui fait partie des valeurs acceptées par le filtre => on examine les autres filtres 
-            if (!(rowValue in filterValue)) {
+            if (filterValue.length > 0 && !(rowValue.includes(filterValue))) {
                 isValid = false;
                 return true;
             }
@@ -82,10 +86,14 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
         return isValid;
     })
 
+    console.log('2', filteredData);
+
+
     const transformedData = filteredData.map(row => {
         const rowFormated = {};
 
         // on ne garde que les colonnes qui nous intéressent dans le résultat 
+        console.log("params (select columns) : ", params)
         if (params != null) {
             for (let [column, value] of Object.entries(row)) {
                 if (column in params) {
@@ -99,6 +107,7 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
 
         return rowFormated;
     })
+    console.log('3', transformedData);
     return transformedData;
 }
 
@@ -150,7 +159,8 @@ export const getToflitFlowsByCsv = ({
 
     return new Promise((resolve, reject) => {
 
-        let results = [];
+        let results = []; // ça sert à quelque chose ?? pour moi c'est pas utilisé, sinon je ne devrais pas avoir l'erreur "t.map is not a function" 
+        // => voir https://www.pluralsight.com/guides/typeerror-handling-in-react.js-for-map-function
 
         let finalStartYear = startYear; // on ne modif pas params en JS
         let finalEndYear = endYear;
@@ -166,20 +176,22 @@ export const getToflitFlowsByCsv = ({
         }
 
         if ((startYear !== null || endYear !== null) && year !== null) {
-            finalStartYear = null;
+            finalStartYear = null; 
             finalEndYear = null;
         }
 
         /* en l'état ça ne fonctionne pas */
-        const URL = `${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv`;
-        console.log("URL '${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv` : ", URL)
+        const URL = `${process.env.PUBLIC_URL || 'localhost:3000'}/data/toflit18_flows_sprint.csv`;
+        console.log("URL '${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv' : ", URL)
         get(URL) // get de axios
             .then(({ data: csvString }) => {
                 // conversion en js (avec d3-dsv)
                 const newData = csvParse(csvString);
+                console.log("newData : ", newData);
                 // faire des choses avec les résultats (filtres, ...)
-                const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, ...rest })
-                resolve(newData);
+                const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, ...rest });
+                console.log("finalData : ", finalData);
+                resolve (newData);
             })
             .catch((err) => {
                 reject(err);
@@ -188,18 +200,6 @@ export const getToflitFlowsByCsv = ({
     })
 
 }
-
-const GetToflitFlowsComponent = ({
-    result
-}) => {
-    return ( // je pense qu'il faut que je return du html en vrai
-    <p>
-    {result.map(row => <div>{row.year, row.customs_region, row.partner}</div>)}
-    </p>
-    );
-  }
-
-export default GetToflitFlowsComponent;
 
 
 
@@ -252,7 +252,7 @@ export const getPorticFlowsByApi = ({
                     // contraire : JSON.stringify()
                     // faire des choses avec les résultats (filtres, ...)
                     const finalData = _filterData(newData, { /*startYear: finalStartYear, endYear: finalEndYear,*/ ...rest })
-                    resolve(newData);
+                    resolve(finalData);
                 } catch(e) {
                     reject(e);
                 }

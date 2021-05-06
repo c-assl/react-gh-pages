@@ -1,8 +1,8 @@
-import { getToflitFlowsByCsv } from './misc';
+import { getToflitFlowsByCsv } from './misc.js';
 
-console.log(
-    getToflitFlowsByCsv({
-        year:1789,
-        customs_region:"La Rochelle"
-    })
-);
+getToflitFlowsByCsv({
+    year:1789,
+    customs_region:"La Rochelle"
+})
+.then(console.log)
+.catch(console.log)
