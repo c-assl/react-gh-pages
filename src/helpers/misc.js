@@ -27,7 +27,9 @@ import get from 'axios';
 
 
 const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
-
+    console.group('filters');
+    console.time('filters time');
+    console.log('input', data);
     /* dans data on a un dict de type : 
     [   {year: "1789", customs_region: "La Rochelle", partner_simplification: "Iles", export_import: ”Import", product_revolutionempire: "...", ...},
         {year: "1782", customs_region: "Bordeaux", ...},
@@ -86,34 +88,41 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
         return isValid;
     })
 
-    console.log('2', filteredData);
+    // console.log('2', filteredData);
 
 
     const transformedData = filteredData.map(row => {
-        const rowFormated = {};
+        let rowFormated = {};
 
         // on ne garde que les colonnes qui nous intéressent dans le résultat => 
-        console.log("params : ", params);
-        console.log("typeof(params) !== 'undefined' : ", (typeof(params) !== 'undefined'));
-        console.log("row : ", row);
+        // console.log("params : ", params);
+        // console.log("typeof(params) !== 'undefined' : ", (typeof params !== 'undefined'));
+        // console.log("row : ", row);
         // on ne passe jamais ni dans le if ni dans le else, je ne sais pas pourquoi 
-        if (typeof params !== 'undefined') {
-            console.log("we are selecting only those columns : ", params);
+        // if (typeof params !== 'undefined') {
+
+        // if (params &&
+        // ci-dessous : tester si objet vide
+        if (!!params && Object.keys(params).length) {
+            // console.log("we are selecting only those columns : ", params);
             for (let [column, value] of Object.entries(row)) {
-                if (column in params) {
+                if (params.includes(column)) {
                     rowFormated[column] = value;
                 }
             }
         }
         // de base c'était else { ... } et on passait jamais dedans apparemment du coup là c'est bizarre
-        else if (typeof params !== 'undefined') {
-            rowFormated = row;
-            console.log("rowFormated = ", row);
+        // else if (typeof params !== 'undefined') {
+        else {
+            // rowFormated = {...row}; // différencier rowFormated et row (nouvelle ref en unpackant et copiant key / params de row) => en JS differencier input d'output
+            // console.log("rowFormated = ", row);
         }
-        console.log("après le if / else");
+        // console.log("après le if / else");
         return rowFormated;
     })
-    console.log('3', transformedData);
+    // console.log('3', transformedData);
+    console.timeEnd('filters time');
+    console.groupEnd('filters');
     return transformedData;
 }
 
@@ -194,7 +203,7 @@ export const getToflitFlowsByCsv = ({
                 // conversion en js (avec d3-dsv)
                 const newData = csvParse(csvString);
                 // faire des choses avec les résultats (filtres, ...)
-                const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, ...rest });
+                const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, year, params, ...rest });
                 console.log("finalData : ", finalData);
                 resolve (finalData);
             })
