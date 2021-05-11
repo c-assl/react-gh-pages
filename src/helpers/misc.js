@@ -46,7 +46,7 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
             return year === +rowYear;
         } else return true;
     })
-    console.log('1', filteredData);
+    // console.log('1', filteredData);
 
     filteredData = filteredData.filter(row => {
         // pour chaque filtre (sauf filtre timespan et filtrage des colomnes) :
@@ -59,12 +59,12 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
 
         // ligne originale : je ne sais pas pourquoi on ne veut prendre en compte les filtres que pour les colonnes qui ne sont pas à garder dans le résultats (colonne données dans l'argument 'params' sous forme de liste)
         // for (let key,filter_value in [param for param in kwargs.items() if param[0] not in ['params']]): 
-        console.log('rest', rest);
+        // console.log('rest', rest);
         Object.entries(rest)
         .some(([key, inputFilterValue]) => {
             const rowValue = row[key];
             let filterValue = inputFilterValue;
-            console.log('filter value 1', filterValue);
+            // console.log('filter value 1', filterValue);
             // si la valeur est une liste : on caste en string ses membres
             if (Array.isArray(filterValue)) {
                 filterValue = filterValue.map(x => x + ''); // caster en string
@@ -73,7 +73,7 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
             else {
                 filterValue = [filterValue + ''];
             }
-            console.log('filter value final', filterValue);
+            // console.log('filter value final', filterValue);
             // à partir de là, filter_value est une liste de strings
 
             // si la ligne a un attribut qui fait partie des valeurs acceptées par le filtre => on examine les autres filtres 
@@ -92,19 +92,25 @@ const _filterData = (data, { startYear, endYear, year, params, ...rest }) => {
     const transformedData = filteredData.map(row => {
         const rowFormated = {};
 
-        // on ne garde que les colonnes qui nous intéressent dans le résultat 
-        console.log("params (select columns) : ", params)
-        if (params != null) {
+        // on ne garde que les colonnes qui nous intéressent dans le résultat => 
+        console.log("params : ", params);
+        console.log("typeof(params) !== 'undefined' : ", (typeof(params) !== 'undefined'));
+        console.log("row : ", row);
+        // on ne passe jamais ni dans le if ni dans le else, je ne sais pas pourquoi 
+        if (typeof params !== 'undefined') {
+            console.log("we are selecting only those columns : ", params);
             for (let [column, value] of Object.entries(row)) {
                 if (column in params) {
                     rowFormated[column] = value;
                 }
             }
         }
-        else {
+        // de base c'était else { ... } et on passait jamais dedans apparemment du coup là c'est bizarre
+        else if (typeof params !== 'undefined') {
             rowFormated = row;
+            console.log("rowFormated = ", row);
         }
-
+        console.log("après le if / else");
         return rowFormated;
     })
     console.log('3', transformedData);
@@ -181,17 +187,16 @@ export const getToflitFlowsByCsv = ({
         }
 
         /* en l'état ça ne fonctionne pas */
-        const URL = `${process.env.PUBLIC_URL || 'localhost:3000'}/data/toflit18_flows_sprint.csv`;
-        console.log("URL '${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv' : ", URL)
+        const URL = `${process.env.PUBLIC_URL || 'localhost:3001'}/data/toflit18_flows_sprint.csv`;
+        // console.log("URL '${process.env.PUBLIC_URL}/data/toflit18_flows_sprint.csv' : ", URL)
         get(URL) // get de axios
             .then(({ data: csvString }) => {
                 // conversion en js (avec d3-dsv)
                 const newData = csvParse(csvString);
-                console.log("newData : ", newData);
                 // faire des choses avec les résultats (filtres, ...)
                 const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, ...rest });
                 console.log("finalData : ", finalData);
-                resolve (newData);
+                resolve (finalData);
             })
             .catch((err) => {
                 reject(err);

@@ -11,11 +11,12 @@ const GetToflitFlowsComponent = ({
         getToflitFlowsByCsv({
             year: 1789,
             customs_region: "La Rochelle",
-            partner: "Portugal"
+            partner: "Portugal",
         })
             .then((newData) => {
                 setData(newData);
                 setLoading(false);
+                console.log("data caguht by component : ", newData)
             })
             .catch((err) => {
                 setLoading(false);
@@ -32,9 +33,9 @@ const GetToflitFlowsComponent = ({
             <div>Erreur ...</div>
         )
     }
-    return ( 
+    return ( // il faudrait que je fasse une boucle en disant return tous les elements dans params
         <div>
-            {data.map((row, index) => <div key={index}>{`${row.year}, ${row.customs_region}, ${row.partner}`}</div>)}
+            {data.map((row, index) => <div key={index}>{`${row.year}, ${row.customs_region}, ${row.partner}`}</div>)} 
         </div>
     );
 }
