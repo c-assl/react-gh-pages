@@ -1,3 +1,24 @@
+import VegaWithMiscFunctions from '../../components/VegaWithMiscFunctions'
+
+<VegaWithMiscFunctions
+  chosen_function="getToflitFlowsByCsv" 
+  spec={{
+    "description": "Flows selon les bureaux de Fermes",
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "customs_office",
+          "type": "nominal"
+      },
+      "y": {
+        "field": "value",
+        "aggregate": "mean", 
+        "type": "quantitative"
+      }
+    }
+  }}
+/>
+
 Ligne d'enquête  n°2
 
 3 La Rochelle : un port dominant mais pas structurant ?

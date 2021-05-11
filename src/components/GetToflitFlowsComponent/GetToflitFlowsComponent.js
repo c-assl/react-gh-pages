@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react'; // si je ne vais pas chercher dans mes fichiers c'est que j'importe implicitement un node module
+import React, { useState, useEffect } from 'react'; // si je ne vais pas chercher dans mes fichiers c'est que j'importe implicitement un node module
 import { getToflitFlowsByCsv } from '../../helpers/misc';
+import { getToflitFlowsByApi } from '../../helpers/misc';
 
 const GetToflitFlowsComponent = ({
+    chosen_function = getToflitFlowsByApi
 }) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // aller chercher les données (get : lancement de la promesse se lance de suite : synchrone, then et catch plus tard)
-        getToflitFlowsByCsv({
+        chosen_function({
             year: 1789,
             customs_region: "La Rochelle",
             partner: "Quatre villes hanséatiques",
@@ -38,8 +40,8 @@ const GetToflitFlowsComponent = ({
         <div>
             {/* 
             {data.map((row, index) => <div key={index}>{`${row.year}, ${row.customs_region}, ${row.partner}`}</div>)}  */
-            // data.map((row, index) => <div key={index}> {`${row}`} </div>)
-            data.map((row, index) => <div key={index}> {`${Object.values(row)}`} </div>)
+                // data.map((row, index) => <div key={index}> {`${row}`} </div>)
+                data.map((row, index) => <div key={index}> {`${Object.values(row)}`} </div>)
             }
         </div>
     );

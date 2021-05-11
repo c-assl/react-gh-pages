@@ -215,28 +215,15 @@ export const getToflitFlowsByCsv = ({
 
 }
 
-
-
-export const getPorticPointcallsByApi = ({
-    filename,
-    spec
-}) => {
-
-}
-
-export const getPorticFlowsByApi = ({
-    // startYear = null,
-    // endYear = null,
+export const getToflitFlowsByApi = ({
+    startYear = null,
+    endYear = null,
     year = null,
     params = null,
     ...rest 
 }) => {
 
     return new Promise((resolve, reject) => {
-
-        let results = [];
-        /*
-        pour l'instant on ne gère pas le fait de gérer plusieurs années dans get_portic_flows
 
         let finalStartYear = startYear; // on ne modif pas params en JS
         let finalEndYear = endYear;
@@ -253,11 +240,12 @@ export const getPorticFlowsByApi = ({
             finalStartYear = null;
             finalEndYear = null;
         }
-        */
 
         const URL = `http://data.portic.fr/api/flows/?date=${year}`;
+        console.log({URL})
         // équivalent à : const URL = 'http://data.portic.fr/api/flows/?date=' + year;
         get(URL) // get de axios
+        // mixed content issue => comme l'API ne fournit pas d'accès HTTPS je me sentais un peu bloquée
             .then(({ data: str }) => {
                 // conversion en js (avec d3-dsv)
                 // const newData = csvParse(csvString);
@@ -265,7 +253,7 @@ export const getPorticFlowsByApi = ({
                     const newData = JSON.parse(str);
                     // contraire : JSON.stringify()
                     // faire des choses avec les résultats (filtres, ...)
-                    const finalData = _filterData(newData, { /*startYear: finalStartYear, endYear: finalEndYear,*/ ...rest })
+                    const finalData = _filterData(newData, { startYear: finalStartYear, endYear: finalEndYear, year, params, ...rest })
                     resolve(finalData);
                 } catch(e) {
                     reject(e);
@@ -277,6 +265,17 @@ export const getPorticFlowsByApi = ({
             })
 
     })
+
+}
+
+
+
+
+
+export const getPorticPointcallsByApi = ({
+    filename,
+    spec
+}) => {
 
 }
 
