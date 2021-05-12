@@ -21,12 +21,12 @@ const VegaWithMiscFunctions = ({
       year: 1789,
       customs_region: "La Rochelle",
       partner: "Quatre villes hanséatiques",
-      params: ['year', 'customs_region', 'partner']
+      params: ['year', 'customs_region', 'customs_office', 'partner', 'value']
   })
       .then((newData) => {
           setData(newData);
           setLoading(false);
-          // console.log("data caguht by component : ", newData)
+          console.log("data caguht by VegaComponent : ", newData)
       })
       .catch((err) => {
           setLoading(false);

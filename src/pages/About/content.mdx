@@ -1,4 +1,6 @@
-import GetToflitFlowsComponent from '../../components/GetToflitFlowsComponent'
+import { getToflitFlowsByCsv, getToflitFlowsByApi } from '../../helpers/misc';
+import GetToflitFlowsComponent from '../../components/GetToflitFlowsComponent';
+import VegaWithMiscFunctions from '../../components/VegaWithMiscFunctions'
 
 export const Box = () => (
   <div style={{padding: 30, backgroundColor: 'tomato'}} />
@@ -13,5 +15,32 @@ En tout cas j'ai visionné une [vidéo](https://www.youtube.com/watch?v=d2sQiI5N
 
 <Box> Et je tente des choses avec mon composant Box </Box>
 
+Tu peux aussi voir ici mes tests sur les fonctions de récupération et filtrage des données
+=> à terme ce seraient probablement des components insérés dans le mdx
+
 ## Test component pour fonctions misc -- getToflitFlowsByCsv
 
+<GetToflitFlowsComponent chosen_function = {getToflitFlowsByCsv}/>
+
+<GetToflitFlowsComponent chosen_function = {getToflitFlowsByApi}/>
+
+## Test component vega pour histogramme se nourrisant de getToflitFlowsByCsv
+
+<VegaWithMiscFunctions
+      chosen_function={getToflitFlowsByCsv}
+      spec={{
+        "description": "Flows selon les bureaux de Fermes",
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "customs_office",
+              "type": "nominal"
+          },
+          "y": {
+            "field": "value",
+            "aggregate": "mean", 
+            "type": "quantitative"
+          }
+        }
+      }}
+    />
