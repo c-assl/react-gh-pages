@@ -4,9 +4,11 @@ import React from 'react';
 import Content from '!babel-loader!@mdx-js/loader!./content.mdx';
 
 function Home() {
+  console.log(process.env)
   return (
     <div>
       <h2>Retour à bon port</h2>
+      { process.env.MAPBOX_TOKEN }
       <Content />
     </div>
   )
