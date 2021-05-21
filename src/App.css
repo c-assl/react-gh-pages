@@ -11,6 +11,16 @@ header {
     color: whitesmoke;
 }
 
+header > nav > ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content : space-between;
+    padding : 0 2rem 0 2rem;
+    background-color: rgb(58, 118, 135);
+    color: whitesmoke;
+}
+
 footer {
     /* position: fixed; */
     background-color: thistle;

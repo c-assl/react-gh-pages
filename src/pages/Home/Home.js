@@ -8,7 +8,7 @@ function Home() {
   return (
     <div>
       <h2>Retour à bon port</h2>
-      { process.env.MAPBOX_TOKEN }
+      { process.env.REACT_APP_MAPBOX_TOKEN }
       <Content />
     </div>
   )
